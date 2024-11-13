@@ -25,7 +25,7 @@ int main()
     double userBalance = 0.0;
     double boxBalance = 0.0;
     double* boxBalancePtr = { &boxBalance };
-    double money = 0.0;
+
     const double CAPPUCINO_PRICE = 2.0;
     const double LATTE_PRICE = 3.0;
     const double ECPRESSO_PRICE = 1.5;
@@ -39,9 +39,10 @@ int main()
             return 1;
         }
         cout << endl;
+        cout << "=================================" << endl;
         cout << "Balance: " << userBalance << "BYN" << endl;
         showMenu();
-
+        cout << "=================================" << endl;
         cout << "Your choice? ";
         cin >> choice;
 
@@ -74,7 +75,6 @@ int main()
             cout << "Input [1..5], please" << endl;
         }
     }
-    cout << "Ok";
     return 0;
 }
 
@@ -106,8 +106,11 @@ double getMoney(double balance)
 
     while (true)
     {
+        cout << endl;
+        cout << "=================================" << endl;
         cout << "Balance: " << balance << endl;
         showCoinMenu();
+        cout << "=================================" << endl;
         cout << "Insert coin: " << endl;
         cin >> choice;
 
