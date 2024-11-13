@@ -1,0 +1,58 @@
+# Visual Studio files
+.vs/
+*.vcxproj.user
+*.sln.docstates
+
+# Build folders
+Debug/
+Release/
+x64/Debug/
+x64/Release/
+
+# Intermediate files
+*.obj
+*.slo
+*.lo
+*.ilk
+*.idb
+*.pdb
+*.ipch
+*.pch
+*.tmp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Static and Dynamic Libraries
+*.lib
+*.a
+*.la
+*.lai
+*.dll
+*.so
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Visual Studio database files
+*.sdf
+*.opensdf
+*.v11.suo
+*.v12.suo
+*.v13.suo
+*.v14.suo
+*.v15.suo
+*.v16.suo
+*.suo
+*.cachefile
+
+# Other
+*.log
+*.tlog
+*.lastbuildstate
+*.VC.db
+*.VC.VC.opendb
