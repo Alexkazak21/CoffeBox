@@ -49,7 +49,7 @@ int main()
         if (choice == 1)
         {
             userBalance = getMoney(userBalance);
-            cout << userBalance << "BYN is deposited" << endl;
+            cout << userBalance << " BYN is deposited" << endl;
             boxBalance += userBalance;
         }
         else if (choice == 2 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
@@ -136,6 +136,7 @@ double getMoney(double balance)
         }
         else if (choice == 6)
         {
+            ClearConsole();
             return balance;
         }
         else {
