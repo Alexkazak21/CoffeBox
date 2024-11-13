@@ -14,7 +14,7 @@ bool CheckPINCODE(int pin);
 void ShowServiceMenu(double* balance, int* cups);
 int AddCups();
 void Withdrow(double* balance);
-
+bool IsEnought(double balance, double price);
 int main()
 {
     cout << "Welcome to the currency exchange system!" << endl;
@@ -51,17 +51,17 @@ int main()
             cout << userBalance << "BYN is deposited" << endl;
             boxBalance += userBalance;
         }
-        else if (choice == 2) {
+        else if (choice == 2 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
             userBalance = Payment(userBalance, CAPPUCINO_PRICE);
             cout << "Ok, take your cappuccino" << endl;
             cupCount--;
         }
-        else if (choice == 3) {
+        else if (choice == 3 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
             userBalance = Payment(userBalance, LATTE_PRICE);
             cout << "Ok, take your latte" << endl;
             cupCount--;
         }
-        else if (choice == 4) {
+        else if (choice == 4 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
             userBalance = Payment(userBalance, ECPRESSO_PRICE);
             cout << "Ok, take your espresso" << endl;
             cupCount--;
@@ -140,15 +140,17 @@ double getMoney(double balance)
         }
     }
 }
-
-double Payment(double balance, double price)
-{
+bool IsEnought(double balance, double price) {
     if (balance < price)
     {
-        cout << "Insufficient money" << endl;
-        return 2;
+        cout << "Lack of funds in the balance sheet." << endl;
+        return false;
     }
-  
+    else
+        return true;
+}
+double Payment(double balance, double price)
+{
     return  balance - price;
 }
 
