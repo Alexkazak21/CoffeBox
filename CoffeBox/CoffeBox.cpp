@@ -161,6 +161,7 @@ bool IsEnought(double balance, double price) {
     else
         return true;
 }
+
 double Payment(double balance, double price)
 {
     return  balance - price;
@@ -290,5 +291,11 @@ int AddCups()
     cout << "1) Input cups number: ";
     cin >> cupNumber;
 
+    if (cupNumber < 0)
+    {
+        cout << "Invalid input.\nMust be greater then 0.\n\n";
+        system("pause");
+        return 0;
+    }
     return cupNumber;
 }
