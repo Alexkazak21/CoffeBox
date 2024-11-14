@@ -47,7 +47,7 @@ int main()
         if (choice == 1)
         {
             userBalance = getMoney(userBalance);
-            cout << userBalance << " BYN is deposited" << endl;
+            cout << endl << userBalance << " BYN is deposited" << endl;
             boxBalance += userBalance;
         }
         else if (choice == 2 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
@@ -140,7 +140,6 @@ double getMoney(double balance)
         }
         else if (choice == 6)
         {
-            ClearConsole();
             return balance;
         }
         else {
@@ -275,6 +274,8 @@ void ShowServiceMenu(double* balance, int* cups)
 
 void Withdrow(double* balance)
 {
+    printf("Extracted money from the machine: %.2f BYN\n", *balance);
+    system("pause");
     *balance = 0.0;
 }
 
