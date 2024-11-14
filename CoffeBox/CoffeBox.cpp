@@ -32,13 +32,17 @@ int main()
 
     const int PIN = 1234;
 
-    while (true) {
+    while (true) 
+    {
         if (cupCount == 0)
         {
             cout << "ON MAINTENANCE" << endl;
             return 1;
         }
-
+        if (boxBalance == 0)
+        {
+            userBalance = 0.0;
+        }
         showMenu(userBalance);
 
         cout << "Your choice? ";
