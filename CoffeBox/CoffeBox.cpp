@@ -4,21 +4,21 @@
 
 using namespace std;
 
-void showMenu();
-void showCoinMenu();
+void showMenu(double balance);
+void showCoinMenu(double balance);
 double getMoney(double userBalance);
 double Payment(double balance, double price);
+bool IsEnought(double balance, double price);
+
 void ServiceProcess(int pincode, double* balance, int* cups);
 void ClearConsole();
 bool CheckPINCODE(int pin);
 void ShowServiceMenu(double* balance, int* cups);
 int AddCups();
 void Withdrow(double* balance);
-bool IsEnought(double balance, double price);
+
 int main()
 {
-    cout << "Welcome to the currency exchange system!" << endl;
-
     int choice = 0;
     int cupCount = 3;
     int* cupsPtr{ &cupCount };
@@ -35,14 +35,12 @@ int main()
     while (true) {
         if (cupCount == 0)
         {
-            cout << "The machine is not working due to technical reasons" << endl;
+            cout << "ON MAINTENANCE" << endl;
             return 1;
         }
-        cout << endl;
-        cout << "=================================" << endl;
-        cout << "Balance: " << userBalance << "BYN" << endl;
-        showMenu();
-        cout << "=================================" << endl;
+
+        showMenu(userBalance);
+
         cout << "Your choice? ";
         cin >> choice;
 
@@ -57,12 +55,12 @@ int main()
             cout << "Ok, take your cappuccino" << endl;
             cupCount--;
         }
-        else if (choice == 3 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
+        else if (choice == 3 && IsEnought(userBalance, LATTE_PRICE) == true) {
             userBalance = Payment(userBalance, LATTE_PRICE);
             cout << "Ok, take your latte" << endl;
             cupCount--;
         }
-        else if (choice == 4 && IsEnought(userBalance, CAPPUCINO_PRICE) == true) {
+        else if (choice == 4 && IsEnought(userBalance, ECPRESSO_PRICE) == true) {
             userBalance = Payment(userBalance, ECPRESSO_PRICE);
             cout << "Ok, take your espresso" << endl;
             cupCount--;
@@ -71,46 +69,52 @@ int main()
         {
             ServiceProcess(PIN, boxBalancePtr, cupsPtr);
         }
-        else {
-            cout << "Input [1..5], please" << endl;
+        else if (choice < 1 || choice > 5) {
+            cout << "\nWrong choice. Input [1..5], please\n" << endl;
         }
+        system("pause");
+        ClearConsole();
     }
     return 0;
 }
 
-void showMenu()
+void showMenu(double balance)
 {
     cout << endl;
+    cout << "=================================" << endl;
+    cout << "Balance: " << balance << endl;
     cout << "1) Insert coin" << endl;
     cout << "2) Cappuccino" << endl;
     cout << "3) Latte" << endl;
     cout << "4) Espresso" << endl;
     cout << "5) Service" << endl;
+    cout << "=================================" << endl;
 }
 
-void showCoinMenu()
+void showCoinMenu(double balance)
 {
+    cout << endl;
+    cout << "=================================" << endl;
+    cout << "Balance: " << balance << endl;
     cout << "1) 10 kopeks" << endl;
     cout << "2) 20 kopeks" << endl;
     cout << "3) 50 kopeks" << endl;
     cout << "4) 1 ruble" << endl;
     cout << "5) 2 rubles" << endl;
     cout << "6) Back to Coffee selection" << endl;
+    cout << "=================================" << endl;
 }
 
 double getMoney(double balance)
 {
     int choice = 0;
 
-    ClearConsole();
-
     while (true)
     {
-        cout << endl;
-        cout << "=================================" << endl;
-        cout << "Balance: " << balance << endl;
-        showCoinMenu();
-        cout << "=================================" << endl;
+        ClearConsole();
+
+        showCoinMenu(balance);
+
         cout << "Insert coin: " << endl;
         cin >> choice;
 
@@ -140,7 +144,8 @@ double getMoney(double balance)
             return balance;
         }
         else {
-            cout << "Input [1..6], please" << endl;
+            cout << "\nWrong choice. Input [1..6], please\n";
+            system("pause");
         }
     }
 }
