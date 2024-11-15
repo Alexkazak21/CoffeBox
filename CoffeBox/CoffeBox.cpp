@@ -11,28 +11,25 @@ double Payment(double price);
 bool IsEnought(double price);
 void showMaintanceMenu();
 
-void ServiceProcess(int pincode, double* balance, int* cups);
+void ServiceProcess(int pincode);
 void ClearConsole();
 bool CheckPINCODE(int pin);
-void ShowServiceMenu(double* balance, int* cups);
+void ShowServiceMenu();
 int AddCups();
-void Withdrow(double* balance);
+void Withdrow();
 
 int cupCount = 7;
 double userBalance = 0.0;
+double boxBalance = 0.0;
 
+const int PIN = 1234;
 const double CAPPUCINO_PRICE = 2.0;
 const double LATTE_PRICE = 3.0;
 const double ECPRESSO_PRICE = 1.5;
 
 int main()
 {
-    int choice = 0;
-    int* cupsPtr{ &cupCount };
-    double boxBalance = 0.0;
-    double* boxBalancePtr = { &boxBalance };
-
-    const int PIN = 1234;
+    int choice = 0;       
 
     while (true) 
     {
@@ -69,7 +66,7 @@ int main()
             cout << "Ok, take your cappuccino" << endl;
             cupCount--;
         }
-        else if (choice == 3 && IsEnought(CAPPUCINO_PRICE) == true) {
+        else if (choice == 3 && IsEnought(LATTE_PRICE) == true) {
             userBalance = Payment(LATTE_PRICE);
             cout << "Ok, take your latte" << endl;
             cupCount--;
@@ -87,7 +84,6 @@ int main()
     }
     return 0;
 }
-
 void showMaintanceMenu()
 {
     int choice = 0; 
@@ -98,8 +94,9 @@ void showMaintanceMenu()
         cout << "Your choice?" << endl;
         cin >> choice;
         if (choice == 1)
-            choice = 2; //Заглушка
-            //ServiceProcess(PIN, boxBalancePtr, cupsPtr);
+        {
+            ServiceProcess(PIN);
+        }           
         else
             cout << "ON MAINTENANCE" << endl;
         system("pause");
@@ -191,7 +188,7 @@ double Payment(double price)
     return  userBalance - price;
 }
 
-void ServiceProcess(int pincode, double* balance, int* cups)
+void ServiceProcess(int pincode)
 {
     int choice = 0;
     bool switcher = true;
@@ -209,60 +206,65 @@ void ServiceProcess(int pincode, double* balance, int* cups)
         if (choice < 1 || choice > 2)
         {
             cout << "\nWrong choice.\n";
-            system("pause");
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("pause");            
             continue;
         }
 
         switch (choice)
         {
-        case 1:
-        {
-            if (!CheckPINCODE(pincode))
+            case 1:
             {
-                while (true)
+                if (!CheckPINCODE(pincode))
+                {
+                    while (true)
+                    {
+                        ClearConsole();
+                        cout << "ON MAINTENANCE\n\n";
+                        system("pause");
+                        continue;
+                    }
+                }
+
+                while (switcher)
                 {
                     ClearConsole();
-                    cout << "ON MAINTENANCE\n\n";
-                    system("pause");
-                    continue;
+                    int servicemanChoise = 0;
+                    ShowServiceMenu();
+
+                    cout << "Insert your choice: ";
+                    cin >> servicemanChoise;
+
+                    if (cin.fail() || servicemanChoise < 1 || servicemanChoise > 3)
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "\nWrong Input.\n";
+                        system("pause");
+                        continue;
+                    }
+
+                    switch (servicemanChoise)
+                    {
+                    case 1:
+                        cupCount += AddCups();
+                        break;
+                    case 2:
+                        Withdrow();
+                        break;
+
+                    default:
+                        switcher = false;
+                        break;
+                    }
                 }
             }
+                break;
 
-            while (switcher)
-            {
-                ClearConsole();
-                int servicemanChoise = 0;
-                ShowServiceMenu(balance, cups);
-
-                cout << "Insert your choice: ";
-                cin >> servicemanChoise;
-
-                if (servicemanChoise < 1 && servicemanChoise > 4)
-                {
-                    system("pause");
-                    continue;
-                }
-
-                switch (servicemanChoise)
-                {
-                case 1:
-                    *cups += AddCups();
-                    break;
-                case 2:
-                    Withdrow(balance);
-                    break;
-
-                default:
-                    switcher = false;
-                    break;
-                }
-            }
-        }
-        break;
-
-        default:
-            switcher = false;
-            break;
+            default:
+                switcher = false;
+                break;
         }
     }
 }
@@ -291,21 +293,21 @@ void ClearConsole()
     system("cls");
 }
 
-void ShowServiceMenu(double* balance, int* cups)
+void ShowServiceMenu()
 {
-    printf("Balance %.2f BYN\n", *balance);
-    cout << "Cups: " << *cups << endl;
+    printf("Balance %.2f BYN\n", boxBalance);
+    cout << "Cups: " << cupCount << endl;
 
     cout << "1) Add cups\n";
     cout << "2) Withdrawal\n";
     cout << "3) Back to Coffee selection\n\n";
 }
 
-void Withdrow(double* balance)
+void Withdrow()
 {
-    printf("Extracted money from the machine: %.2f BYN\n", *balance);
+    printf("Extracted money from the machine: %.2f BYN\n", boxBalance);
     system("pause");
-    *balance = 0.0;
+    boxBalance = 0.0;
 }
 
 int AddCups()
@@ -317,7 +319,7 @@ int AddCups()
 
     if (cupNumber > 700 || cupNumber < 0)
     {
-        cout << "Invalid input.\nMust be greater then 0.\n\n";
+        cout << "Invalid input.\nMust be in [1 - 700] \n\n";
         system("pause");
         return 0;
     }
