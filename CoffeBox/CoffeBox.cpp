@@ -61,29 +61,30 @@ int main()
             cout << endl << userBalance << " BYN is deposited" << endl;
             boxBalance += userBalance;
         }
-        else if (choice == 2 && IsEnought(CAPPUCINO_PRICE) == true) {
+        if (choice == 2 && IsEnought(CAPPUCINO_PRICE) == true) {
             userBalance = Payment(CAPPUCINO_PRICE);
             cout << "Ok, take your cappuccino" << endl;
             cupCount--;
         }
-        else if (choice == 3 && IsEnought(LATTE_PRICE) == true) {
+        if (choice == 3 && IsEnought(LATTE_PRICE) == true) {
             userBalance = Payment(LATTE_PRICE);
             cout << "Ok, take your latte" << endl;
             cupCount--;
         }
-        else if (choice == 4 && IsEnought(ECPRESSO_PRICE) == true) {
+        if (choice == 4 && IsEnought(ECPRESSO_PRICE) == true) {
             userBalance = Payment(ECPRESSO_PRICE);
             cout << "Ok, take your espresso" << endl;
             cupCount--;
         }
-        else 
+        if (choice == 5)
         {
-            ServiceProcess(PIN, boxBalancePtr, cupsPtr);
+            ServiceProcess(PIN);
         }
         system("pause");
     }
     return 0;
 }
+
 void showMaintanceMenu()
 {
     int choice = 0; 
@@ -91,7 +92,7 @@ void showMaintanceMenu()
     {
         cout << "ON MAINTENANCE" << endl;
         cout << "1) Service" << endl;
-        cout << "Your choice?" << endl;
+        cout << "Your choice? ";
         cin >> choice;
         if (choice == 1)
         {
@@ -103,6 +104,7 @@ void showMaintanceMenu()
         ClearConsole();
     }
 }
+
 void showMenu()
 {
     cout << endl;
