@@ -309,7 +309,7 @@ int AddCups()
     cout << "1) Input cups number: ";
     cin >> cupNumber;
 
-    if (cupNumber < 0)
+    if (cupNumber > 700 || cupNumber < 0)
     {
         cout << "Invalid input.\nMust be greater then 0.\n\n";
         system("pause");
