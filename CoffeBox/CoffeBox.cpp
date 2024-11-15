@@ -18,7 +18,7 @@ void ShowServiceMenu(double* balance, int* cups);
 int AddCups();
 void Withdrow(double* balance);
 
-int cupCount = 0;
+int cupCount = 7;
 double userBalance = 0.0;
 
 const double CAPPUCINO_PRICE = 2.0;
@@ -36,14 +36,13 @@ int main()
 
     while (true) 
     {
-        if (cupCount == 0)
-        {
-            showMaintanceMenu();
-        }
+        showMaintanceMenu();
+
         if (boxBalance == 0)
         {
             userBalance = 0.0;
         }
+
         showMenu();
 
         cout << "Your choice? ";
