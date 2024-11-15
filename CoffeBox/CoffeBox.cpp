@@ -36,6 +36,8 @@ int main()
 
     while (true) 
     {
+        ClearConsole();
+
         showMaintanceMenu();
 
         if (boxBalance == 0)
@@ -48,6 +50,14 @@ int main()
         cout << "Your choice? ";
         cin >> choice;
 
+        if (choice < 1 || choice > 5)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "\nWrong choice. Input [1..5], please\n" << endl;
+            system("pause");
+            continue;
+        }
         if (choice == 1)
         {
             getMoney();
@@ -59,7 +69,7 @@ int main()
             cout << "Ok, take your cappuccino" << endl;
             cupCount--;
         }
-        else if (choice == 3 && IsEnought(LATTE_PRICE) == true) {
+        else if (choice == 3 && IsEnought(CAPPUCINO_PRICE) == true) {
             userBalance = Payment(LATTE_PRICE);
             cout << "Ok, take your latte" << endl;
             cupCount--;
@@ -69,18 +79,15 @@ int main()
             cout << "Ok, take your espresso" << endl;
             cupCount--;
         }
-        else if (choice == 5)
+        else 
         {
             ServiceProcess(PIN, boxBalancePtr, cupsPtr);
         }
-        else if (choice < 1 || choice > 5) {
-            cout << "\nWrong choice. Input [1..5], please\n" << endl;
-        }
         system("pause");
-        ClearConsole(); 
     }
     return 0;
 }
+
 void showMaintanceMenu()
 {
     int choice = 0; 
