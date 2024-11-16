@@ -317,13 +317,21 @@ int AddCups()
 {
     ClearConsole();
     int cupNumber = 0;
+
     cout << "1) Input cups number: ";
     cin >> cupNumber;
+    if (cupNumber <= 0)
+    {
+        cout << "Invalid input.\nMust be in [1 - 700] \n\n";
+        system("pause");
+        return 0;
+    }
+
     cupCount += cupNumber;
-    if (cupCount > 700 || cupCount< 0)
+    if (cupCount > 700)
     {
         cupCount -= cupNumber;
-        cout << "Invalid input.\nMust be in [1 - 700] \n\n";
+        cout << "Invalid input.\nMax count of caps is 700 \n\n";
         system("pause");
         return 0;
     }
