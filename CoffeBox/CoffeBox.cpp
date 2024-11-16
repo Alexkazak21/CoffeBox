@@ -99,7 +99,7 @@ void showMaintanceMenu()
             ServiceProcess(PIN);
         }           
         else
-            cout << "ON MAINTENANCE" << endl;
+            cout << "\nON MAINTENANCE. Input 1 to enter the service menu.\n" << endl;
         system("pause");
         ClearConsole();
     }
@@ -175,6 +175,7 @@ double getMoney()
         }
     }
 }
+
 bool IsEnought(double price) {
     if (userBalance < price)
     {
@@ -318,9 +319,10 @@ int AddCups()
     int cupNumber = 0;
     cout << "1) Input cups number: ";
     cin >> cupNumber;
-
-    if (cupNumber > 700 || cupNumber < 0)
+    cupCount += cupNumber;
+    if (cupCount > 700 || cupCount< 0)
     {
+        cupCount -= cupNumber;
         cout << "Invalid input.\nMust be in [1 - 700] \n\n";
         system("pause");
         return 0;
